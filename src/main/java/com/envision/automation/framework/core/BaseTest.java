@@ -2,7 +2,9 @@ package com.envision.automation.framework.core;
 
 import com.envision.automation.framework.utils.ExtentManager;
 import com.envision.automation.framework.utils.ExtentTestManager;
+import com.envision.automation.framework.utils.JsonUtils;
 import com.envision.automation.framework.utils.configLoader;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -14,12 +16,15 @@ import java.lang.reflect.Method;
 
 public class BaseTest {
     public WebDriver driver;
+   public JsonUtils jsonUtils;
 
 
     @BeforeSuite
-    public  void loadConfigurations() throws IOException {
+    public  void loadConfigurations() throws IOException, ParseException {
         ExtentManager.getReporter();
         configLoader.loadConfiguration();
+        jsonUtils = new JsonUtils();
+        jsonUtils.loadTestDataFile("testData.json");
 
 
     }
